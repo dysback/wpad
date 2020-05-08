@@ -1,1 +1,28 @@
-wrrrrrr
+// proxy configuration script for wpad
+
+function FindProxyForURL(url, host) {
+
+	// variables
+	var strProxy = "PROXY 10.16.28.51:8080; PROXY 10.16.28.52:8080; DIRECT"
+
+	
+	// Privatne mreže
+	if (isInNet(host, "10.0.0.0",  "255.0.0.0")){
+					return "DIRECT";
+	}
+	if (isInNet(host, "172.16.0.0",  "255.240.0.0")){
+					return "DIRECT";
+	}
+	if (isInNet(host, "192.168.0.0",  "255.255.0.0")){
+					return "DIRECT";
+	}
+	
+	// loopback (localhost)
+	if (isInNet(host, "127.0.0.0",  "255.0.0.0")){
+					return "DIRECT";
+	}
+	
+	return strProxy;
+
+
+}
